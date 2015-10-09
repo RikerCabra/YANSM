@@ -23,6 +23,15 @@ namespace YANSM
         public MainWindow()
         {
             InitializeComponent();
+            GetCurrentWeather();
+        }
+
+        private void GetCurrentWeather()
+        {
+            Conditions currentWeather = Weather.GetCurrentConditions();
+            lblCity.Content = currentWeather.City;
+            lblConditions.Content = currentWeather.Condition;
+            lblTemp.Content = currentWeather.Temp;
         }
     }
 }

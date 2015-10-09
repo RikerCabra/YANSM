@@ -8,40 +8,76 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.Net.Http.Headers;
-
+using System.Data.Objects;
+using System.Windows;
+using System.Xml;
 
 namespace YANSM
 {
     class Weather
     {
-        //Duluth city ID is 5024719
-        
-        public string apiKey { get; set; }
-        [System.ComponentModel.DefaultValue("5024719")] //Duluth, MN
-        public string cityID { get; set; }
-        
-        private const string URL = "http://api.openweathermap.org/data/2.5/forecast/";
-        
+        private static string apiKey, cityID;
+        private const string baseURL= "http://api.openweathermap.org/data/2.5/";
+
         /// <summary>
         /// Builds URL for OWM with apiKey from App.config
         /// </summary>
-        /// <returns>String</returns>
-        private string BuildUrl()
+        /// <returns>API Call URL</returns>
+        private static string BuildUrl(string weatherType)
         {
-            string completeUrl = URL;
-            this.apiKey = ConfigurationManager.AppSettings["apiKey"];
-
-            completeUrl += String.Format("city?id={0}&APPID={1}", cityID, this.apiKey);
+            string completeUrl = baseURL + weatherType;
+            apiKey = ConfigurationManager.AppSettings["apiKey"];
+            cityID = ConfigurationManager.AppSettings["cityID"];
+            System.Diagnostics.Debug.Write(apiKey + " || " + cityID);
+            completeUrl += String.Format("?id={0}&APPID={1}&mode=xml&units=imperial", cityID, apiKey);
 
             return completeUrl;
         }
-
-        public void GetWeather()
+        
+        public static Conditions GetCurrentConditions()
         {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(BuildUrl());
+            Conditions current = new Conditions();
+
+            XmlDocument xmlConditions = new XmlDocument();
+            xmlConditions.Load(BuildUrl("weather"));
+
+            if(xmlConditions.SelectSingleNode("/current/city") == null)
+            {
+                current.City = "City Not Found";
+            }
+            else
+            {
+                XmlNodeList nodeList = xmlConditions.GetElementsByTagName("city");
+                for (int i = 0; i < nodeList.Count; i++)
+                    current.City = nodeList[i].Attributes["name"].Value;
+
+                nodeList = xmlConditions.GetElementsByTagName("weather");
+                for (int i = 0; i < nodeList.Count; i++)
+                    current.Condition = nodeList[i].Attributes["value"].Value;
+
+                nodeList = xmlConditions.GetElementsByTagName("temperature");
+                for (int i = 0; i < nodeList.Count; i++)
+                    current.Temp = nodeList[i].Attributes["value"].Value;
+                
+            }
+
+            return current;
         }
 
+        public static Conditions GetForecastConditions()
+        {
+            Conditions forecast = new Conditions();
+
+            XmlDocument xmlConditions = new XmlDocument();
+            xmlConditions.Load(BuildUrl("forecast/city"));
+
+            if (xmlConditions.SelectSingleNode("/weatherdata/location/name") == null)
+            {
+                forecast.City = "NOOOOOOOOOOOOOOOOOOOOOOB";
+            }
+
+            return forecast;
+        }
 
     }
 }

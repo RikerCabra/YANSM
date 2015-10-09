@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <Label x:Name="lblCity" Content="CITY" Foreground="White" Width="auto" Height="auto" Margin="10,10,10,270"/>
+        <Label x:Name="lblTemp" Content="TEMP" Foreground="White" Width="auto" Height="auto" Margin="10,64,10,216"/>
+        <Label x:Name="lblConditions" Content="CONDITIONS" Foreground="White" Width="auto" Height="auto" Margin="10,123,10,157"/>
     </Grid>
 </Window>
