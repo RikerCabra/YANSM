@@ -1,0 +1,14 @@
+﻿<Window x:Class="YANSM.MainWindow" Background="Black"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:YANSM"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Label x:Name="lblCity" Content="CITY" Foreground="White" Width="auto" Height="auto" Margin="10,10,10,270"/>
+        <Label x:Name="lblTemp" Content="TEMP" Foreground="White" Width="auto" Height="auto" Margin="10,64,10,216"/>
+        <Label x:Name="lblConditions" Content="CONDITIONS" Foreground="White" Width="auto" Height="auto" Margin="10,123,10,157"/>
+    </Grid>
+</Window>
