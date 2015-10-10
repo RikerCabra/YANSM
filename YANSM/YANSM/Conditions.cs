@@ -8,7 +8,7 @@ namespace YANSM
 {
     class Conditions
     {
-
+        public string Time { get; set; }
         public string City {get; set; }
         public string Condition { get; set; }
         public string Temp { get; set; }
