@@ -47,33 +47,43 @@ namespace YANSM
             }
             else
             {
-                XmlNodeList nodeList = xmlConditions.GetElementsByTagName("city");
-                for (int i = 0; i < nodeList.Count; i++)
-                    current.City = nodeList[i].Attributes["name"].Value;
-
-                nodeList = xmlConditions.GetElementsByTagName("weather");
-                for (int i = 0; i < nodeList.Count; i++)
-                    current.Condition = nodeList[i].Attributes["value"].Value;
-
-                nodeList = xmlConditions.GetElementsByTagName("temperature");
-                for (int i = 0; i < nodeList.Count; i++)
-                    current.Temp = nodeList[i].Attributes["value"].Value;
+                current.City = xmlConditions.SelectSingleNode("/current/city").Attributes["name"].Value;
+                current.Condition = xmlConditions.SelectSingleNode("/current/weather").Attributes["value"].Value;
+                current.Temp = xmlConditions.SelectSingleNode("/current/temperature").Attributes["value"].Value;
                 
             }
 
             return current;
         }
 
-        public static Conditions GetForecastConditions()
+        public static List<Conditions> GetForecastConditions()
         {
-            Conditions forecast = new Conditions();
+            List<Conditions> forecast = new List<Conditions>();
+            
 
             XmlDocument xmlConditions = new XmlDocument();
             xmlConditions.Load(BuildUrl("forecast/city"));
 
             if (xmlConditions.SelectSingleNode("/weatherdata/location/name") == null)
             {
-                forecast.City = "NOOOOOOOOOOOOOOOOOOOOOOB";
+                Conditions noCity = new Conditions();
+                noCity.City = "City Not Found";
+                forecast.Add(noCity);
+            }
+            else
+            {
+                XmlNodeList nodeList = xmlConditions.GetElementsByTagName("time");
+                foreach(XmlNode node in nodeList)
+                {
+                    Conditions condition = new Conditions();
+                    condition.City = xmlConditions.SelectSingleNode("/weatherdata/location/name").InnerText;
+
+                    condition.Time = node.SelectSingleNode("/weatherdata/forecast/time").Attributes["from"].Value;
+                    //condition.Condition = node.SelectSingleNode("/weatherdata/forecast/time").Attributes["value"].Value;
+                    condition.Temp = node.SelectSingleNode("/weatherdata/forecast/time/temperature").Attributes["value"].Value;
+
+                    forecast.Add(condition);
+                }
             }
 
             return forecast;

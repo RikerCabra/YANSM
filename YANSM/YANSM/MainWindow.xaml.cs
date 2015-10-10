@@ -28,10 +28,16 @@ namespace YANSM
 
         private void GetCurrentWeather()
         {
+            List<Conditions> forecastWeather = Weather.GetForecastConditions();
             Conditions currentWeather = Weather.GetCurrentConditions();
             lblCity.Content = currentWeather.City;
             lblConditions.Content = currentWeather.Condition;
             lblTemp.Content = currentWeather.Temp;
+        }
+
+        private void GetForecast()
+        {
+
         }
     }
 }

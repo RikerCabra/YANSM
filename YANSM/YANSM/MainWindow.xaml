@@ -7,8 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <Label x:Name="lblCity" Content="CITY" Foreground="White" Width="auto" Height="auto" Margin="10,10,10,270"/>
-        <Label x:Name="lblTemp" Content="TEMP" Foreground="White" Width="auto" Height="auto" Margin="10,64,10,216"/>
-        <Label x:Name="lblConditions" Content="CONDITIONS" Foreground="White" Width="auto" Height="auto" Margin="10,123,10,157"/>
+        <Label Name="lblCurrentHeader" Content="Current Conditions" Foreground="White" HorizontalAlignment="Center" FontWeight="Bold" FontStyle="Italic" FontSize="14.667" Margin="197,0,181,0"/>
+        <Label x:Name="lblCity" Content="CITY" Foreground="White" Width="auto" Height="auto" Margin="10,29,10,251"/>
+        <Label x:Name="lblTemp" Content="TEMP" Foreground="White" Width="auto" Height="auto" Margin="10,51,10,229"/>
+        <Label x:Name="lblConditions" Content="CONDITIONS" Foreground="White" Width="auto" Height="auto" Margin="10,74,10,206"/>
+        <Label Name="lblForecastHeader" Content="Forecasted Condtions" Foreground="Wheat" HorizontalAlignment="Center" Width="auto" FontWeight="Bold" FontStyle="Italic" FontSize="14.667" Margin="197,96,164,-96" />
     </Grid>
 </Window>
