@@ -72,17 +72,20 @@ namespace YANSM
             }
             else
             {
-                XmlNodeList nodeList = xmlConditions.GetElementsByTagName("time");
+                XmlNodeList nodeList = xmlConditions.GetElementsByTagName("forecast");
                 foreach(XmlNode node in nodeList)
                 {
-                    Conditions condition = new Conditions();
-                    condition.City = xmlConditions.SelectSingleNode("/weatherdata/location/name").InnerText;
+                    foreach(XmlNode timeNode in node.ChildNodes)
+                    {
+                        Conditions forecastedCondition = new Conditions();
+                        forecastedCondition.City = xmlConditions.SelectSingleNode("/weatherdata/location/name").InnerText;
+                        forecastedCondition.Temp = timeNode.SelectSingleNode("temperature").Attributes["value"].Value;
+                        forecastedCondition.Time = timeNode.Attributes["from"].Value;
+                        if (timeNode.SelectSingleNode("precipitation").Attributes["type"] != null)
+                            forecastedCondition.Condition = timeNode.SelectSingleNode("precipitation").Attributes["type"].Value ;
 
-                    condition.Time = node.SelectSingleNode("/weatherdata/forecast/time").Attributes["from"].Value;
-                    //condition.Condition = node.SelectSingleNode("/weatherdata/forecast/time").Attributes["value"].Value;
-                    condition.Temp = node.SelectSingleNode("/weatherdata/forecast/time/temperature").Attributes["value"].Value;
-
-                    forecast.Add(condition);
+                        forecast.Add(forecastedCondition);
+                    }                    
                 }
             }
 

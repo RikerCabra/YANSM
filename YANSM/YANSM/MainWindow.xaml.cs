@@ -37,7 +37,7 @@ namespace YANSM
 
         private void GetForecast()
         {
-
+            
         }
     }
 }
