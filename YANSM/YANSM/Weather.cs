@@ -82,7 +82,7 @@ namespace YANSM
                         forecastedCondition.Temp = timeNode.SelectSingleNode("temperature").Attributes["value"].Value;
                         forecastedCondition.Time = timeNode.Attributes["from"].Value;
                         if (timeNode.SelectSingleNode("precipitation").Attributes["type"] != null)
-                            forecastedCondition.Condition = timeNode.SelectSingleNode("precipitation").Attributes["type"].Value ;
+                            forecastedCondition.Condition = timeNode.SelectSingleNode("precipitation").Attributes["type"].Value;
 
                         forecast.Add(forecastedCondition);
                     }                    

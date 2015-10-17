@@ -7,10 +7,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <Label Name="lblCurrentHeader" Content="Current Conditions" Foreground="White" HorizontalAlignment="Center" FontWeight="Bold" FontStyle="Italic" FontSize="14.667" Margin="197,0,181,0"/>
-        <Label x:Name="lblCity" Content="CITY" Foreground="White" Width="auto" Height="auto" Margin="10,29,10,251"/>
-        <Label x:Name="lblTemp" Content="TEMP" Foreground="White" Width="auto" Height="auto" Margin="10,51,10,229"/>
-        <Label x:Name="lblConditions" Content="CONDITIONS" Foreground="White" Width="auto" Height="auto" Margin="10,74,10,206"/>
-        <Label Name="lblForecastHeader" Content="Forecasted Condtions" Foreground="Wheat" HorizontalAlignment="Center" Width="auto" FontWeight="Bold" FontStyle="Italic" FontSize="14.667" Margin="197,96,164,-96" />
+        <Label Name="lblCurrentHeader" Content="Current Conditions" Foreground="White" HorizontalAlignment="Center" FontWeight="Bold" FontStyle="Italic" FontSize="14.667" Margin="197,0,147,0" Width="173"/>
+        <Label x:Name="lblCurrentCity" Content="CITY" Foreground="White" Width="auto" Height="auto" Margin="10,29,10,251"/>
+        <Label x:Name="lblCurrentTemp" Content="TEMP" Foreground="White" Width="auto" Height="auto" Margin="10,51,10,229"/>
+        <Label x:Name="lblCurrentConditions" Content="CONDITIONS" Foreground="White" Width="auto" Height="auto" Margin="10,74,10,206"/>
+        <Label Name="lblForecastHeader" Content="Forecasted Condtions" Foreground="Wheat" HorizontalAlignment="Center" Width="173" FontWeight="Bold" FontStyle="Italic" FontSize="14.667" Margin="197,96,147,-96" />
+        <Label x:Name="lblForecastTime" Content="TIME" Foreground="White" Width="auto" Height="auto" Margin="10,165,275,10"/>
+        <Label x:Name="lblForecastTemp" Content="TEMP" Foreground="White" Width="auto" Height="auto" Margin="275,165,10,10"/>
     </Grid>
 </Window>
