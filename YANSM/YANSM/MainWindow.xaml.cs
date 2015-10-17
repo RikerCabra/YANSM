@@ -41,11 +41,13 @@ namespace YANSM
         {
             lblForecastTime.Content = "";
             lblForecastTemp.Content = "";
+            lblForecastPrecip.Content = "";
             List<Conditions> forecastWeather = Weather.GetForecastConditions();
             foreach (Conditions con in forecastWeather)
             {
                 lblForecastTime.Content += DateTime.Parse(con.Time).ToString(CultureInfo.CurrentCulture)  + Environment.NewLine;
                 lblForecastTemp.Content += String.Format("{0} °F", con.Temp) + Environment.NewLine;
+                lblForecastPrecip.Content += String.Format("Precip: {0}", con.Condition) + Environment.NewLine;
             }
         }
     }
