@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,24 +21,32 @@ namespace YANSM
     /// </summary>
     public partial class MainWindow : Window
     {
+        TextInfo textInfo = new CultureInfo(CultureInfo.CurrentCulture.ToString()).TextInfo;
         public MainWindow()
         {
             InitializeComponent();
             GetCurrentWeather();
+            GetForecast();
         }
 
         private void GetCurrentWeather()
         {
-            List<Conditions> forecastWeather = Weather.GetForecastConditions();
             Conditions currentWeather = Weather.GetCurrentConditions();
-            lblCity.Content = currentWeather.City;
-            lblConditions.Content = currentWeather.Condition;
-            lblTemp.Content = currentWeather.Temp;
+            lblCurrentCity.Content = textInfo.ToTitleCase(currentWeather.City);
+            lblCurrentConditions.Content = textInfo.ToTitleCase(currentWeather.Condition);
+            lblCurrentTemp.Content = String.Format("{0} °F", currentWeather.Temp);
         }
 
         private void GetForecast()
         {
-            
+            lblForecastTime.Content = "";
+            lblForecastTemp.Content = "";
+            List<Conditions> forecastWeather = Weather.GetForecastConditions();
+            foreach (Conditions con in forecastWeather)
+            {
+                lblForecastTime.Content += DateTime.Parse(con.Time).ToString(CultureInfo.CurrentCulture)  + Environment.NewLine;
+                lblForecastTemp.Content += String.Format("{0} °F", con.Temp) + Environment.NewLine;
+            }
         }
     }
 }
